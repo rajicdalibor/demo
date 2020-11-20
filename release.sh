@@ -12,7 +12,7 @@ if [[ "${CIRCLE_BRANCH}" =~ "master" ]]; then
   echo "Git commit release '${VERSION}"
   git add client/package.json client/package-lock.json
   git commit -m "[skip ci] release '${VERSION}'"
-  git tag ${VERION}
+  git tag ${VERSION}
 
   git push --set-upstream origin $CIRCLE_BRANCH
   git push origin --tags
