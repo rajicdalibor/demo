@@ -10,14 +10,14 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install dependencies
-        command: npm install
-        working_directory: client
+          name: Install dependencies
+          command: npm install
+          working_directory: client
 
       - run:
-        name: Unit test
-        command: npm run test:unit
-        working_directory: client
+          name: Unit test
+          command: npm run test:unit
+          working_directory: client
 
 workflows:
   build:
