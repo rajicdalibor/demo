@@ -2,7 +2,7 @@
 
 set -eo
 
-if [[ "${CIRCLE_BRANCH}" =~ "master"}]]; then
+if [[ "${CIRCLE_BRANCH}" =~ "master" ]]; then
   VERSION=$(npm run version --prefix client --silent)
 
   echo "Configure git"
