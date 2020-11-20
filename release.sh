@@ -2,7 +2,6 @@
 
 set -eo
 
-if [[ "${CIRCLE_BRANCH}" =~ "master" ]]; then
   VERSION=$(npm run version --prefix client --silent)
 
   echo "Configure git"
@@ -16,6 +15,3 @@ if [[ "${CIRCLE_BRANCH}" =~ "master" ]]; then
 
   git push --set-upstream origin $CIRCLE_BRANCH
   git push origin --tags
-else
-  echo "Skip releasing"
-fi
