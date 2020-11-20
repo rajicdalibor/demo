@@ -2,7 +2,8 @@ version: 2.1
 
 jobs:
   build:
-    - image: circleci/node:12-buster-browsers
+    docker:
+      - image: circleci/node:12-buster-browsers
 
     working_directory: ~/repo
 
