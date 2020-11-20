@@ -38,13 +38,13 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "47:2a:db:f0:ab:21:03:88:57:f8:a8:e6:47:f0:17:c7"
+      - checkout
 
       - restore_cache:
           keys:
             - circleci-demo-{{ checksum "client/package-lock.json" }}
             # fallback to using the latest cache if no exact match is found
             - circleci-demo-
-      - checkout
       - run:
           name: Unit test
           command: npm run test:unit
