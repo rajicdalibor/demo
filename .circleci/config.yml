@@ -28,11 +28,39 @@ jobs:
             - client/node_modules
           key: circleci-demo-{{ checksum "client/package-lock.json" }}
 
+  test:
+    docker:
+      - image: circleci/node:12-buster-browsers
+
+    working_directory: ~/repo
+
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "47:2a:db:f0:ab:21:03:88:57:f8:a8:e6:47:f0:17:c7"
+      - checkout
+
+      - restore_cache:
+          keys:
+            - circleci-demo-{{ checksum "client/package-lock.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - circleci-demo-
       - run:
           name: Unit test
           command: npm run test:unit
           working_directory: client
+  release:
+    docker:
+      - image: circleci/node:12-buster-browsers
 
+    working_directory: ~/repo
+
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "47:2a:db:f0:ab:21:03:88:57:f8:a8:e6:47:f0:17:c7"
+
+      - checkout
       - run:
           name: Prepare release
           command: bash prepare-release.sh
@@ -45,3 +73,10 @@ workflows:
   build:
     jobs:
       - build
+      - test:
+          requires:
+            - build
+      - release:
+          requires:
+            - test
+
